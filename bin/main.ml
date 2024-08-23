@@ -1,7 +1,10 @@
+open Lwt.Infix
 open Url_shortener
 
 let () =
-  let base_url = "http://localhost:8080" in
-  let shortener = create base_url in
-  Printf.printf "Starting server on http://localhost:8080\n";
-  start_server shortener 8080
+  Lwt_main.run (
+    User.initialize_db () >>= fun () ->
+    let base_url = "http://localhost:8080" in
+    create base_url >>= fun t ->
+    Lwt.return (start_server t 8080)
+  )

@@ -1,3 +1,4 @@
 (library
  (name url_shortener)
- (libraries lwt cohttp-lwt-unix))
+ (modules user url_shortener)
+ (libraries lwt lwt.unix caqti caqti-lwt caqti-driver-sqlite3 yojson argon2 jose uri))
